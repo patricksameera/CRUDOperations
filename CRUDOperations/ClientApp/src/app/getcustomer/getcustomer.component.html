@@ -1,0 +1,32 @@
+<h1>{{title}}</h1>
+<hr />
+<p>This component demonstrates how to get customer data from the server.</p>
+<p *ngIf="!customerList"><em>Loading...</em></p>
+<p>
+  <a [routerLink]="['/addcustomer']">Create New Customer</a>
+</p>
+<table class='table' *ngIf="customerList">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Country</th>
+      <th>Email</th>
+      <th>Gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customerList">
+      <td>{{ customer.id }}</td>
+      <td>{{ customer.name }}</td>
+      <td>{{ customer.country }}</td>
+      <td>{{ customer.email }}</td>
+      <td>{{ customer.gender }}</td>
+      <td>
+      <td>
+        <a [routerLink]="['/customer/edit/', customer.id]">Edit</a> |
+        <a [routerLink]="" (click)="delete(customer.id)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
