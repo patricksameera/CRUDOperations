@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../customerservice.service'
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'getcustomer_selector',
@@ -20,11 +21,26 @@ export class GetCustomerComponent {
 
   getCustomers() {
     this._customerService.getCustomers().subscribe(
-      data => this.customerList = data
-    )
+      // the first argument is a function which runs on success
+      data => {
+        this.customerList = data;
+        console.log("Inspecting customer data:");
+        console.log(data);
+        return true;
+      },
+      // the second argument is a function which runs on error
+      error => {
+        console.log("Error occured:");
+        console.error(error);
+        return Observable.throw(error);
+      },
+      // the third argument is a function which runs on completion
+      () => console.log('Loading customer data completed sucessfully.')
+    );
   }
 
   delete(customerID) {
+    console.log("customerID: " + customerID);
     var ans = confirm("Do you want to delete customer with ID: " + customerID);
     if (ans) {
       this._customerService.deleteCustomer(customerID).subscribe((data) => {

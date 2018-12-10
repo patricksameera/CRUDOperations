@@ -33,7 +33,7 @@ namespace CRUDOperations.Context
 
                     objects = objects.OrderBy(x => x.ID);
 
-                    rtnValue = objects.ToArray();
+                    rtnValue = objects.ToArray();                    
                 }
                 catch (Exception ex)
                 {
